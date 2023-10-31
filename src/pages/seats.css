@@ -1,0 +1,66 @@
+/* BookNowScreen.css */
+
+.book-now-screen {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  width:590px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.seating-plan {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 590px; /* Adjust the width to fit 10 seats in a row (10 seats * 50px width + 9 gaps * 10px) */
+}
+
+.seat {
+  width: 50px; /* Adjust the width of each seat */
+  height: 50px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.seat.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.seat.booked {
+  background-color: #f00; /* Red background color for booked seats */
+  color: #fff;
+  cursor: not-allowed; /* Change cursor to not-allowed for booked seats */
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

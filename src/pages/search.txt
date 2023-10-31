@@ -1,0 +1,37 @@
+import React, { useState } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { setInputvalue } from '../redux/action'
+
+
+const Search = () => {
+  const value = useSelector((state)=> state.inputReducer.inputValue);
+  
+  const [inputText, setInputText] = useState('');
+  const dispatch = useDispatch();
+  const inputHandler = (e) => {
+    // e.preventDefault();
+    setInputText(e.target.value);
+    // const inputValue= inputText;
+    // dispatch(setInputvalue(inputValue));
+    // console.log(value);
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setInputvalue(inputText));
+  };
+
+  console.log(value);
+  return (
+    <>   
+      <form onSubmit={handleSubmit}>
+            <label>
+              <input type="text" onChange={inputHandler} value={inputText} />
+            </label>
+            <button type="submit">Search</button>
+          </form>
+      
+    </>
+  )
+}
+export default Search

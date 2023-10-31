@@ -1,0 +1,87 @@
+import React, { useState } from 'react';
+
+function TicketBooking() {
+  const numRows = 26;
+  const numCols = 10;
+  const [grid, setGrid] = useState(Array.from({ length: numRows }, () => Array(numCols).fill(false)));
+  const [bookedSeats, setBookedSeats] = useState(new Set());
+  const [selectedSeats, setSelectedSeats] = useState(new Set());
+
+  const toggleSeat = (rowIndex, colIndex) => {
+    const seatKey = `${String.fromCharCode('a'.charCodeAt(0) + rowIndex)}${colIndex + 1}`;
+
+    if (bookedSeats.has(seatKey)) {
+      alert(`Seat ${seatKey} is already booked.`);
+    } else {
+      const updatedGrid = [...grid];
+      updatedGrid[rowIndex][colIndex] = !grid[rowIndex][colIndex];
+      setGrid(updatedGrid);
+
+      if (!grid[rowIndex][colIndex]) {
+        setSelectedSeats((prevSelectedSeats) => new Set(prevSelectedSeats.add(seatKey)));
+      } else {
+        setSelectedSeats((prevSelectedSeats) => {
+          const updatedSelectedSeats = new Set(prevSelectedSeats);
+          updatedSelectedSeats.delete(seatKey);
+          return updatedSelectedSeats;
+        });
+      }
+    }
+  };
+
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            {Array.from({ length: numCols }, (_, colIndex) => (
+              <th key={colIndex}>{colIndex + 1}</th> // Display column numbers
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {grid.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              <td>{String.fromCharCode('a'.charCodeAt(0) + rowIndex)}</td> {/* Display row alphabets */}
+              {row.map((isBooked, colIndex) => (
+                <td
+                  key={colIndex}
+                  className={
+                    isBooked
+                      ? 'colored booked'
+                      : selectedSeats.has(`${String.fromCharCode('a'.charCodeAt(0) + rowIndex)}${colIndex + 1}`)
+                      ? 'colored selected'
+                      : 'colored'
+                  }
+                >
+                  <button
+                    onClick={() => toggleSeat(rowIndex, colIndex)}
+                    style={{
+                      backgroundColor: selectedSeats.has(
+                        `${String.fromCharCode('a'.charCodeAt(0) + rowIndex)}${colIndex + 1}`
+                      )
+                        ? 'blue'
+                        : isBooked
+                        ? 'gray'
+                        : 'green',
+                      color: selectedSeats.has(
+                        `${String.fromCharCode('a'.charCodeAt(0) + rowIndex)}${colIndex + 1}`
+                      )
+                        ? 'white'
+                        : 'black',
+                    }}
+                  >
+                    {String.fromCharCode('a'.charCodeAt(0) + rowIndex) + (colIndex + 1)}
+                  </button>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default TicketBooking;
