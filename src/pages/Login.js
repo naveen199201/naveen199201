@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/api/login/', {
+      const response = await axios.post('https://movie-five-ochre.vercel.app/api/login/', {
         user_id,
         password,
         ifLogged,
